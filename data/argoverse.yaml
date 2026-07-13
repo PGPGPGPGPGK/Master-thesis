@@ -10,13 +10,14 @@ train: Argoverse-1.1/images/train/ # train images (relative to 'path')
 val: Argoverse-1.1/images/val/ # val images (relative to 'path')
 test: Argoverse-1.1/images/test/ # test images (optional)
 
-# Classes (Argoverse-HD / COCO-style detection classes)
+# Classes (as actually configured in the recovered thesis run;
+# see docs/images/class_names_config.png)
 names:
   0: person
   1: bicycle
   2: car
   3: motorcycle
   4: bus
-  5: truck
+  5: big car
   6: traffic_light
   7: stop_sign

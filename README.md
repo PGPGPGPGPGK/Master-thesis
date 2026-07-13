@@ -19,9 +19,30 @@ Pipeline:
 2. **`scripts/train.py`** — fine-tunes a YOLOv8 model on the converted dataset.
 3. **`scripts/predict.py`** — runs a trained checkpoint over a folder of
    images/frames.
-4. **`scripts/track.py`** — runs YOLOv8's built-in tracker on video, draws
-   bounding boxes and motion trails per tracked pedestrian, and saves
-   annotated frames.
+4. **`scripts/track.py`** — runs YOLOv8's built-in tracker frame-by-frame via
+   OpenCV, draws bounding boxes and motion trails per tracked pedestrian, and
+   saves annotated frames.
+5. **`scripts/track_video.py`** — a simpler alternative that tracks directly
+   over a video file using Ultralytics' streaming API.
+
+## Model
+
+YOLOv8n (nano) — 225 layers, ~3.01M parameters, 8.2 GFLOPs. See
+[`docs/images/model_summary.png`](docs/images/model_summary.png) for the
+full layer-by-layer breakdown from an actual training run.
+
+## Evidence this pipeline actually ran
+
+The `docs/images/` folder holds editor screenshots recovered from the
+original project directory, proving each part of the pipeline was executed
+(not just described in the thesis text):
+
+| File | What it shows |
+|---|---|
+| `model_summary.png` | Real YOLOv8n architecture printout from an actual training run |
+| `class_names_config.png` | The exact class list used (`person`, `bicycle`, `car`, `motorcycle`, `bus`, `big car`, `traffic_light`, `stop_sign`) |
+| `augmentation_config.png` | Training-time augmentation hyperparameters (flip, hue/saturation/exposure jitter) |
+| `track_video_script.png` | The original streaming-tracker script that `scripts/track_video.py` is cleaned up from |
 
 ## Status
 
