@@ -1,10 +1,4 @@
-"""Convert Argoverse-HD JSON annotations to YOLO-format label files.
-
-Recovered and cleaned up from the thesis project's dataset-conversion script
-(originally adapted from Ultralytics' argoverse2yolo helper, with
-hard-coded local paths). Paths are now CLI arguments instead of being
-hard-coded to a specific machine.
-"""
+"""Convert Argoverse-HD JSON annotations to YOLO-format label files."""
 
 import argparse
 import json

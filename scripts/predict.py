@@ -1,8 +1,4 @@
-"""Run a trained YOLOv8 checkpoint over a folder of images or video frames.
-
-Recovered and cleaned up from the thesis project's prediction script, which
-loaded a checkpoint from a hard-coded local path.
-"""
+"""Run a trained YOLOv8 checkpoint over a folder of images or video frames."""
 
 import argparse
 

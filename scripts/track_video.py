@@ -1,9 +1,7 @@
 """Run YOLOv8 tracking directly over a video file and dump every frame to disk.
 
-Recovered and cleaned up from a second thesis-project script (see
-docs/images/track_video_script.png) that used Ultralytics' built-in
-`model.track(..., stream=True, save_frames=True)` rather than the manual
-OpenCV loop in track.py. Kept as a separate, simpler alternative.
+Simpler alternative to track.py, using Ultralytics' built-in streaming
+tracker instead of a manual OpenCV loop.
 """
 
 import argparse
@@ -35,9 +33,6 @@ def main() -> None:
         save_frames=True,
     )
 
-    # The original recovered script called cv2.imwrite() directly on each
-    # streamed `Results` object, which isn't a valid image array. Fixed here
-    # to render the annotated frame first via .plot().
     for frame_idx, result in enumerate(results):
         annotated = result.plot()
         frame_path = os.path.join(args.output_dir, f"frame_{frame_idx}.jpg")

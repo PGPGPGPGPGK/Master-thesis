@@ -1,11 +1,5 @@
 """Track pedestrians in a video with YOLOv8, drawing bounding boxes and
 motion trails, and saving annotated frames.
-
-Recovered and cleaned up from the thesis project's tracking script. The
-original screenshot only showed the main loop body (persistence tracking,
-trail drawing, frame saving); the surrounding setup (imports, model/video
-loading, track_history init) has been reconstructed here in the same style
-to produce a complete, runnable script.
 """
 
 import argparse

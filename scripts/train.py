@@ -1,9 +1,4 @@
-"""Train a YOLOv8 pedestrian-detection model.
-
-Recovered and cleaned up from the thesis project's training script, which
-had hard-coded local paths (C:/Users/pg/Desktop/...) and a fixed 3-epoch,
-CPU-only run. Now takes arguments so it works on any machine/GPU.
-"""
+"""Train a YOLOv8 pedestrian-detection model."""
 
 import argparse
 
