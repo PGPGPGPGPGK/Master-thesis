@@ -6,11 +6,11 @@ Detection Enhancement"* (SRH Berlin University of Applied Sciences, 2024).
 
 ## What this actually is
 
-The thesis document describes a YOLOv3 + TensorFlow 1.14 + Caltech pipeline.
-What was actually run (recovered from script screenshots and local files) is
-different: **YOLOv8 (Ultralytics) trained on the Argoverse-HD dataset**, with
-prediction and multi-object tracking on top. This repo reflects what was
-actually executed, not the thesis prose.
+An early informal draft of the thesis described a YOLOv3 + TensorFlow 1.14 +
+Caltech pipeline. The **final submitted thesis** (2024-03-24, matriculation
+3107225) confirms what was actually run: **YOLOv8 (Ultralytics) trained on
+the Argoverse dataset**, with image prediction and multi-object tracking on
+top. This repo implements that actual pipeline.
 
 Pipeline:
 
@@ -44,18 +44,38 @@ original project directory, proving each part of the pipeline was executed
 | `augmentation_config.png` | Training-time augmentation hyperparameters (flip, hue/saturation/exposure jitter) |
 | `track_video_script.png` | The original streaming-tracker script that `scripts/track_video.py` is cleaned up from |
 
+## Results (from the submitted thesis)
+
+Trained and evaluated across 30 iterations with the SGD optimizer
+(lr0=0.001, momentum=0.9, weight_decay=0.0001), converted Argoverse
+annotations, and 8 classes (`person`, `bicycle`, `car`, `motorcycle`, `bus`,
+`big car`, `traffic_light`, `stop_sign`).
+
+**Best customized run:** Accuracy 0.85, Recall 0.75, F1 0.80.
+
+**Effect of input image size** (3 epochs each):
+
+| Image size | Precision | Recall | mAP50 | mAP50-95 | Inference time |
+|---|---|---|---|---|---|
+| 320×320 | 0.399 | 0.187 | 0.197 | 0.115 | 10.1 ms |
+| 640×640 | 0.576 | 0.315 | 0.338 | 0.208 | 39.9 ms |
+
+640×640 wins on every accuracy metric at ~4x the inference cost — the
+thesis concludes 608–640px is close to optimal for this dataset/architecture.
+
+Confusion matrices, F1/P/R/PR curves across iterations, and per-image
+qualitative comparisons are in Chapter 8 of the thesis (not reproduced here
+since they weren't recovered as standalone files).
+
 ## Status
 
-- Steps 1–4 above were run during the thesis (evidence: `runs/detect/train`,
-  `train10`, `train20` checkpoints referenced in scripts; annotated output
-  frames on disk).
-- PiCar (Raspberry Pi car) deployment of the trained model was **not**
-  completed — only generic RC-car motor/servo control code exists
-  (see `third_party/`), and it was never wired up to the pedestrian detector.
-  That integration is open future work, not something to claim as done.
-- The thesis's Chapter 4 (Experimental Evaluation) was left empty in the
-  written draft — no formal precision/recall/mAP numbers were recorded
-  anywhere found on disk.
+- Steps 1–4 above were run during the thesis and formally evaluated (see
+  Results above, and Chapter 7–8 of the submitted thesis).
+- "Deployment and Testing" in the thesis refers to evaluation against a
+  custom dataset, not physical PiCar deployment. The PiCar (Raspberry Pi
+  car) integration was never completed — only generic RC-car motor/servo
+  control code exists (see `third_party/`), never wired up to the trained
+  pedestrian detector. That remains open future work.
 
 ## Setup
 
