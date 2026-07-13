@@ -1,0 +1,22 @@
+# Argoverse-HD dataset config (ring-front-center camera)
+# Source: https://www.cs.cmu.edu/~mengtial/proj/streaming/ (Argo AI)
+# Docs: https://docs.ultralytics.com/datasets/detect/argoverse/
+#
+# Run scripts/convert_argoverse_to_yolo.py first to generate YOLO labels,
+# then point `path` below at your local dataset root.
+
+path: ../datasets/Argoverse # dataset root dir
+train: Argoverse-1.1/images/train/ # train images (relative to 'path')
+val: Argoverse-1.1/images/val/ # val images (relative to 'path')
+test: Argoverse-1.1/images/test/ # test images (optional)
+
+# Classes (Argoverse-HD / COCO-style detection classes)
+names:
+  0: person
+  1: bicycle
+  2: car
+  3: motorcycle
+  4: bus
+  5: truck
+  6: traffic_light
+  7: stop_sign

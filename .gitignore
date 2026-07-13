@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Datasets and weights (large, not for git)
+datasets/
+Argoverse/
+*.pt
+*.weights
+
+# Training/inference outputs
+runs/
+annotated_frame_*.jpg
+
+# OS
+.DS_Store
+Thumbs.db
