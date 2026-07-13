@@ -30,9 +30,32 @@ classes: `person`, `bicycle`, `car`, `motorcycle`, `bus`, `big car`,
 | 320×320 | 0.399 | 0.187 | 0.197 | 0.115 | 10.1 ms |
 | 640×640 | 0.576 | 0.315 | 0.338 | 0.208 | 39.9 ms |
 
-Best run (SGD, lr0=0.001, momentum=0.9, weight_decay=0.0001): **0.85
-accuracy, 0.75 recall, 0.80 F1**. 640×640 input gives the best accuracy
-across the board at roughly 4x the inference cost of 320×320.
+640×640 input gives the best accuracy across the board at roughly 4x the
+inference cost of 320×320.
+
+## Limitations & Next Steps
+
+- **Recall trails precision.** At 640×640 the model still misses a
+  meaningful share of true pedestrians (recall 0.315 vs. precision 0.576 in
+  the reported run). For a safety-relevant detector, false negatives matter
+  more than false positives, so recall — not just mAP — should be the
+  primary metric to optimize going forward, e.g. via a lower confidence
+  threshold, class-balanced loss weighting, or more pedestrian-heavy
+  training data.
+- **Short training runs.** Reported metrics come from 3-epoch runs, mainly
+  to compare configurations cheaply. Full convergence would need
+  significantly more epochs before these numbers are representative of the
+  model's ceiling.
+- **Nano model size.** YOLOv8n trades capacity for speed. A larger backbone
+  (s/m) would likely close some of the recall gap at the cost of inference
+  latency — worth benchmarking if the target hardware allows it.
+- **Single dataset domain.** Training data is Argoverse (US driving
+  scenes). Performance on other geographies/road layouts/weather is
+  untested and would need a held-out domain-shifted validation set.
+- **Latency vs. accuracy tradeoff unresolved.** 640×640 nearly quadruples
+  inference time over 320×320 for a real accuracy gain; the right operating
+  point depends on the target frame rate of the deployment hardware, which
+  hasn't been fixed yet.
 
 ## Setup
 
@@ -55,12 +78,6 @@ python scripts/predict.py --weights runs/detect/train/weights/best.pt --source /
 # 4. Track pedestrians in a video
 python scripts/track.py --weights runs/detect/train/weights/best.pt --source /path/to/video.mp4
 ```
-
-## third_party/
-
-A reference Raspberry Pi lane-keeping-assist project (MIT licensed, © 2022
-Shivam4797), used as a structural reference for motor/servo control on a
-camera-equipped RC car.
 
 ## Dataset
 
