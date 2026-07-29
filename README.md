@@ -70,7 +70,7 @@ pip install -r requirements.txt
 python scripts/convert_argoverse_to_yolo.py --dataset-dir /path/to/Argoverse
 
 # 2. Train
-python scripts/train.py --data argoverse.yaml --epochs 50 --imgsz 640
+python scripts/train.py --data data/argoverse.yaml --epochs 50 --imgsz 640
 
 # 3. Predict on a folder of images
 python scripts/predict.py --weights runs/detect/train/weights/best.pt --source /path/to/images
@@ -78,6 +78,56 @@ python scripts/predict.py --weights runs/detect/train/weights/best.pt --source /
 # 4. Track pedestrians in a video
 python scripts/track.py --weights runs/detect/train/weights/best.pt --source /path/to/video.mp4
 ```
+
+## Using your own dataset
+
+You don't need Argoverse — the converter script is Argoverse-specific, but
+training works with any dataset in standard YOLO layout:
+
+```
+my_dataset/
+├── images/
+│   ├── train/   # your training images (.jpg/.png)
+│   └── val/     # your validation images
+└── labels/
+    ├── train/   # one .txt per image: "class x_center y_center width height" (normalized 0-1)
+    └── val/
+```
+
+Create a dataset YAML (copy `data/argoverse.yaml` as a starting point) and
+**replace the paths and class names with your own**:
+
+```yaml
+path: /path/to/my_dataset   # <-- your dataset root folder
+train: images/train         # <-- your training images folder (relative to path)
+val: images/val             # <-- your validation images folder
+
+names:                      # <-- your own classes, numbered from 0
+  0: person
+  1: car
+```
+
+Then train with it:
+
+```bash
+python scripts/train.py --data /path/to/my_dataset.yaml --epochs 50 --imgsz 640
+```
+
+If your annotations are in another format (COCO JSON, Pascal VOC, Label
+Studio), export them as "YOLO" from your labeling tool — most support it.
+
+## Trained weights
+
+The trained checkpoints (`.pt` files) are **not included in this repo** —
+only the code is. To get a working model, either train one yourself with the
+steps above (the `--weights yolov8n.pt` default downloads the pretrained
+YOLOv8-nano base automatically), or use any YOLOv8 checkpoint you already
+have with `predict.py` / `track.py`.
+
+If you'd like the exact weights from the thesis experiments (`best.pt`,
+trained on Argoverse), reach out to me on
+[LinkedIn](https://www.linkedin.com/in/pavanganeshk) and I'll be happy to
+share them.
 
 ## Dataset
 
