@@ -33,6 +33,33 @@ classes: `person`, `bicycle`, `car`, `motorcycle`, `bus`, `big car`,
 640×640 input gives the best accuracy across the board at roughly 4x the
 inference cost of 320×320.
 
+### Figures (final training run)
+
+![Training curves](docs/figures/results.png)
+
+| Precision-Recall | F1-Confidence |
+|---|---|
+| ![PR curve](docs/figures/pr_curve.png) | ![F1 curve](docs/figures/f1_curve.png) |
+
+![Normalized confusion matrix](docs/figures/confusion_matrix_normalized.png)
+
+Ground truth vs. model predictions on a validation batch:
+
+| Labels | Predictions |
+|---|---|
+| ![Validation labels](docs/figures/val_batch0_labels.jpg) | ![Validation predictions](docs/figures/val_batch0_pred.jpg) |
+
+Detections on real-world photos outside the training domain
+(original vs. annotated, as presented in the thesis):
+
+| Original | Annotated |
+|---|---|
+| ![Original 1](docs/figures/original_1.jpeg) | ![Annotated 1](docs/figures/annotated_1.jpeg) |
+| ![Original 2](docs/figures/original_2.jpg) | ![Annotated 2](docs/figures/annotated_2.jpg) |
+| ![Original 3](docs/figures/original_3.jpeg) | ![Annotated 3](docs/figures/annotated_3.jpeg) |
+| ![Original 4](docs/figures/original_4.jpg) | ![Annotated 4](docs/figures/annotated_4.jpg) |
+| ![Original 5](docs/figures/original_5.jpg) | ![Annotated 5](docs/figures/annotated_5.jpg) |
+
 ## Limitations & Next Steps
 
 - **Recall trails precision.** At 640×640 the model still misses a
