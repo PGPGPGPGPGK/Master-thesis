@@ -1,5 +1,7 @@
 # Pedestrian Detection for Autonomous Driving Safety
 
+![Project preview](docs/preview.png)
+
 A YOLOv8 pipeline for detecting pedestrians and other road objects (cyclists,
 vehicles, traffic lights, stop signs) from a vehicle-mounted camera, trained
 on the Argoverse dataset. Built for a Master's thesis on improving
